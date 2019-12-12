@@ -1,21 +1,21 @@
 import IsValid from './validator';
 
-function setFieldState(field, isValid) {
+function setFieldState(field: HTMLInputElement, isValid: boolean): void {
     field.classList.toggle('c-form__field--invalid', !isValid);
 }
 
-function setFormState(form, invalidFields) {
+function setFormState(form: HTMLFormElement, invalidFields: number): void {
     form.classList.toggle('c-form--valid', invalidFields === 0);
 }
 
-const formToValidate = document.querySelector('.js-form');
-const firstNameField = formToValidate.querySelector('.js-form__firstname');
-const lastNameField = formToValidate.querySelector('.js-form__lastname');
-const emailField = formToValidate.querySelector('.js-form__email');
-const phoneField = formToValidate.querySelector('.js-form__phone');
-const ageField = formToValidate.querySelector('.js-form__age');
+const contactForm = document.querySelector<HTMLFormElement>('.js-form');
+const firstNameField = contactForm.querySelector<HTMLInputElement>('.js-form__firstname');
+const lastNameField = contactForm.querySelector<HTMLInputElement>('.js-form__lastname');
+const emailField = contactForm.querySelector<HTMLInputElement>('.js-form__email');
+const phoneField = contactForm.querySelector<HTMLInputElement>('.js-form__phone');
+const ageField = contactForm.querySelector<HTMLInputElement>('.js-form__age');
 
-formToValidate.addEventListener('submit', (event) => {
+contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const isFirstNameValid = (
@@ -39,7 +39,7 @@ formToValidate.addEventListener('submit', (event) => {
     setFieldState(phoneField, isPhoneValid);
     setFieldState(ageField, isAgeValid);
 
-    const numberOfInvalidFields = formToValidate.querySelectorAll('.c-form__field--invalid').length;
+    const numberOfInvalidFields = contactForm.querySelectorAll('.c-form__field--invalid').length;
 
-    setFormState(formToValidate, numberOfInvalidFields);
+    setFormState(contactForm, numberOfInvalidFields);
 });
