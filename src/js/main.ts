@@ -15,7 +15,7 @@ const emailField = contactForm.querySelector<HTMLInputElement>('.js-form__email'
 const phoneField = contactForm.querySelector<HTMLInputElement>('.js-form__phone');
 const ageField = contactForm.querySelector<HTMLInputElement>('.js-form__age');
 
-contactForm.addEventListener('submit', (event) => {
+contactForm.addEventListener('submit', (event: Event) => {
     event.preventDefault();
 
     const isFirstNameValid = (
