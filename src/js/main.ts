@@ -4,8 +4,8 @@ function setFieldState(field: HTMLInputElement, isValid: boolean): void {
     field.classList.toggle('c-form__field--invalid', !isValid);
 }
 
-function setFormState(form: HTMLFormElement, invalidFields: number): void {
-    form.classList.toggle('c-form--valid', invalidFields === 0);
+function setFormState(form: HTMLFormElement, isValid: boolean): void {
+    form.classList.toggle('c-form--valid', isValid);
 }
 
 const contactForm = document.querySelector<HTMLFormElement>('.js-form');
@@ -29,8 +29,8 @@ contactForm.addEventListener('submit', (event: Event) => {
     const isEmailValid = IsValid.email(emailField.value);
     const isPhoneValid = IsValid.phone(phoneField.value);
     const isAgeValid = (
-        IsValid.numberRange(ageField.value, 18, 120)
-        || !ageField.value
+        !ageField.value
+        || IsValid.numberRange(ageField.value, 18, 120)
     );
 
     setFieldState(lastNameField, isLastNameValid);
@@ -39,7 +39,13 @@ contactForm.addEventListener('submit', (event: Event) => {
     setFieldState(phoneField, isPhoneValid);
     setFieldState(ageField, isAgeValid);
 
-    const numberOfInvalidFields = contactForm.querySelectorAll('.c-form__field--invalid').length;
+    const isFormValid = (
+        isFirstNameValid
+        && isLastNameValid
+        && isEmailValid
+        && isPhoneValid
+        && isAgeValid
+    );
 
-    setFormState(contactForm, numberOfInvalidFields);
+    setFormState(contactForm, isFormValid);
 });
